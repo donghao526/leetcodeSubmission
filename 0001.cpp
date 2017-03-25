@@ -1,15 +1,16 @@
-int lengthOfLongestSubstring(string s) {
-	int maxLength = 0, head = 0, length = s.length();
-	int flag[256];
-	memset(&flag, -1, sizeof(int) * 256);
-	for (int j = 0; j < length; j++) {
-		// find the repeated char
-		if (flag[(int)s[j]] >= head) {
-			maxLength = maxLength > (j - head) ? maxLength : (j - head);
-			head = flag[(int)s[j]] + 1;
+vector<int> twoSum(vector<int>& nums, int target) {
+	map<int, int> mapping;
+	map<int, int>::iterator it;
+	vector<int> pos;
+
+	int len = nums.size();
+	for(int i = 0; i < len; ++i){
+		it = mapping.find(target - nums[i]);
+		if(it != mapping.end()){
+			pos.push_back(it->second);
+			pos.push_back(i + 1);
+			return pos;
 		}
-		flag[(int)s[j]] = j；
+		mapping[nums[i]] = i + 1;
 	}
-	maxLength = maxLength > (length - head) ? maxLength : (length - head);
-	return maxLength;
 }
